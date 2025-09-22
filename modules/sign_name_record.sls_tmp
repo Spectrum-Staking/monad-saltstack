@@ -1,0 +1,38 @@
+{% set user = salt['pillar.get']('monad_config:user_data:user_name') %}
+{% set home = salt['pillar.get']('monad_config:user_data:home_folder_path') ~ '/' ~ user %}
+{% set shell = salt['pillar.get']('monad_config:user_data:shell', '/bin/bash') %}
+
+# Fetch the utility via $CL_BUCKET and make it executable (once)
+fetch_sign_name_record:
+  cmd.run:
+    - name: |
+        bash -lc '
+          set -e
+          source {{ home }}/.env
+          curl -fsSL -o {{ home }}/sign-name-record "https://pub-b0d0d7272c994851b4c8af22a766f571.r2.dev/utils/sign-name-record"
+          chmod u+x {{ home }}/sign-name-record
+        '
+    - cwd: {{ home }}
+    - runas: {{ user }}
+    - shell: {{ shell }}
+    - creates: {{ home }}/sign-name-record
+
+# Run it and SAVE the output lines for later
+run_sign_name_record:
+  cmd.run:
+    - name: |
+        bash -lc '
+          set -e
+          source {{ home }}/.env
+          ./sign-name-record \
+            --address "$(curl -s4 ifconfig.me):8000" \
+            --keystore-path {{ home }}/monad-bft/config/id-secp \
+            --password "${KEYSTORE_PASSWORD}" \
+            --self-record-seq-num 0 \
+          | tee {{ home }}/self-name-record.txt
+        '
+    - cwd: {{ home }}
+    - runas: {{ user }}
+    - shell: {{ shell }}
+    - creates: {{ home }}/self-name-record.txt
+
