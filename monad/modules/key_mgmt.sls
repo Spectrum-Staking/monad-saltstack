@@ -11,7 +11,7 @@ create_secp_key:
         monad-keystore create \
         --key-type secp \
         --keystore-path {{ home_folder_path }}/{{ user_name }}/monad-bft/config/id-secp \
-        --password "${KEYSTORE_PASSWORD}" > /opt/monad/backup/secp-backup
+        --password "${KEYSTORE_PASSWORD}" > {{ home_folder_path }}/{{ user_name }}/backup/secp-backup
     - runas: {{ user_name }}
     - shell: {{ shell }}
     - cwd: {{ home_folder_path }}/{{ user_name }}
@@ -25,16 +25,9 @@ create_bls_key:
         monad-keystore create \
         --key-type bls \
         --keystore-path {{ home_folder_path }}/{{ user_name }}/monad-bft/config/id-bls \
-        --password "${KEYSTORE_PASSWORD}" > /opt/monad/backup/bls-backup
+        --password "${KEYSTORE_PASSWORD}" > {{ home_folder_path }}/{{ user_name }}/backup/bls-backup
     - runas: {{ user_name }}
     - shell: {{ shell }}
     - cwd: {{ home_folder_path }}/{{ user_name }}
     - unless: test -f {{ home_folder_path }}/{{ user_name }}/monad-bft/config/id-bls
-
-# Create combined public key backup
-create_combined_pubkey_backup:
-  cmd.run:
-    - name: grep "public key" /opt/{{ user_name }}/backup/secp-backup /opt/{{ user_name }}/backup/bls-backup > {{home_folder_path}}/{{user_name}}/pubkey-secp-bls
-    - runas: {{user_name}}
-    - unless: test -f {{ home_folder_path }}/{{ user_name }}/pubkey-secp-bls
 

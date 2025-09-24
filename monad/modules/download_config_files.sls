@@ -12,14 +12,6 @@ ensure_monad_config_dir:
     - mode: 755
     - makedirs: True
 
-# Download node.toml from remote URL to config directory
-download_node_toml:
-  cmd.run:
-    - name: curl -o {{ config_dir }}/monad-bft/config/node.toml https://bucket.monadinfra.com/config/testnet-2/latest/node.toml
-    - runas: {{ user_name }}
-    - cwd: {{ config_dir }}
-    - creates: {{ config_dir }}/monad-bft/config/node.toml
-
 # Download validators.toml from remote URL to config directory
 download_validators_toml:
   cmd.run:

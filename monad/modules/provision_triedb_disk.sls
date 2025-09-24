@@ -1,4 +1,6 @@
-{% set drive = salt['pillar.get']('monad_config:hardware:drive') %}
+
+{% set monad_node = salt['grains.get']('monad', {}) %}
+{% set drive = salt['pillar.get']('monad_config:nodes').get(monad_node).get('mpt_drive') %}
 
 # Install tool
 install_nvme_cli:

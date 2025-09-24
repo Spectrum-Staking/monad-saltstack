@@ -1,8 +1,13 @@
 {% set home_folder_path = salt['pillar.get']('monad_config:user_data:home_folder_path') %}
 {% set user_name = salt['pillar.get']('monad_config:user_data:user_name') %}
 {% set group = salt['pillar.get']('monad_config:user_data:group') %}
-{% set node_name = salt['pillar.get']('monad_config:user_data:node_name') %}
 {% set home = home_folder_path ~ '/' ~ user_name %}
+
+{% set node = salt['grains.get']('monad', {}) %}
+{% set network = salt['pillar.get']('monad_config:' ~ node ~ ':network') %}
+{% set node_name = salt['pillar.get']('monad_config:networks' ~ network ~ ':node_name') %}
+{% set config_network_name = salt['pillar.get']('monad_config:networks' ~ network ~ ':config_network_name') %}
+{% set beneficiary = salt['pillar.get']('monad_config:networks' ~ network ~ ':beneficiary') %}
 
 # Deploy node.toml configuration from template
 deploy_node_toml:

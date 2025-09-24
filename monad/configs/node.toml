@@ -8,9 +8,9 @@
 #########################################################
 # Node-specific configuration
 #########################################################
-beneficiary = "0x96654519b164ea568193852250F5274941128A12"
-node_name = "{{ node_name }}" # add your node name here
-network_name = "testnet-2" # DO NOT CHANGE
+beneficiary = "{{ beneficiary }}"
+node_name = "{{ node_name }}"
+network_name = "{{ config_network_name }}"
 ipc_tx_batch_size = 1000
 ipc_max_queued_batches = 10
 # must be <= ipc_max_queued_batches
