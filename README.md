@@ -44,13 +44,18 @@ monad_config:
 *   `networks`: Defines network-specific details.
     *   `version`: The version of Monad to install (`latest` or a specific version number).
     *   `config_network_name`: The name of the network for configuration files.
-    *   `beneficiary`: Your beneficiary address.
+    *   `beneficiary`: Your beneficiary address. Make sure to use quotes to indicate a string.
 
 ## States
 
 ### Deploy State (`deploy.sls`)
 
 The `deploy` state is used to provision a new Monad node from scratch. It performs the following steps:
+
+**Out of scope:**
+
+*   UFW management
+*   OTEL installation and config
 
 1.  **Prerequisites and Setup:**
     *   Provisions and formats a dedicated disk for TrieDB storage.

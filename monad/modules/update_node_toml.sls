@@ -16,7 +16,7 @@ deploy_node_toml:
     - template: jinja
     - context:
         network_name: {{ network }}
-        beneficiary: {{ beneficiary }}
+        beneficiary: "{{ beneficiary }}"
         node_name: {{ node_name }}
         address_with_port: __slot__:salt:cmd.shell('if [ -f {{ home }}/self-name-record.txt ]; then grep "^self_address" {{ home }}/self-name-record.txt | cut -d"\"" -f2; else echo "PLACEHOLDER_ADDRESS"; fi', runas="{{ user_name }}", shell="/bin/bash").strip()
         record_sig: __slot__:salt:cmd.shell('if [ -f {{ home }}/self-name-record.txt ]; then grep "^self_name_record_sig" {{ home }}/self-name-record.txt | cut -d"\"" -f2; else echo "PLACEHOLDER_SIG"; fi', runas="{{ user_name }}", shell="/bin/bash").strip()
