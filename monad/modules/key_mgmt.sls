@@ -7,11 +7,12 @@
 create_secp_key:
   cmd.run:
     - name: |
-        source {{ home_folder_path }}/{{ user_name }}/.env
+        bash -c 'source {{ home_folder_path }}/{{ user_name }}/.env
         monad-keystore create \
         --key-type secp \
         --keystore-path {{ home_folder_path }}/{{ user_name }}/monad-bft/config/id-secp \
         --password "${KEYSTORE_PASSWORD}" > {{ home_folder_path }}/{{ user_name }}/backup/secp-backup
+        '
     - runas: {{ user_name }}
     - shell: {{ shell }}
     - cwd: {{ home_folder_path }}/{{ user_name }}
@@ -21,13 +22,13 @@ create_secp_key:
 create_bls_key:
   cmd.run:
     - name: |
-        source {{ home_folder_path }}/{{ user_name }}/.env
+        bash -c 'source {{ home_folder_path }}/{{ user_name }}/.env
         monad-keystore create \
         --key-type bls \
         --keystore-path {{ home_folder_path }}/{{ user_name }}/monad-bft/config/id-bls \
         --password "${KEYSTORE_PASSWORD}" > {{ home_folder_path }}/{{ user_name }}/backup/bls-backup
+        '
     - runas: {{ user_name }}
     - shell: {{ shell }}
     - cwd: {{ home_folder_path }}/{{ user_name }}
     - unless: test -f {{ home_folder_path }}/{{ user_name }}/monad-bft/config/id-bls
-

@@ -4,11 +4,13 @@
 {% set home             = home_folder_path ~ '/' ~ user_name %}
 
 fetch_forkpoint_script:
-  cmd.run:
-    - name: curl -sSL -o {{ home }}/scripts/download-forkpoint.sh https://bucket.monadinfra.com/scripts/testnet-2/download-forkpoint.sh
+  file.managed:
+    - name: {{ home }}/scripts/download-forkpoint.sh
+    - source: https://bucket.monadinfra.com/scripts/testnet-2/download-forkpoint.sh
     - user: {{ user_name }}
-    - cwd: {{ home }}
-    - shell: /bin/bash
+    - group: {{ group }}
+    - mode: 766
+    - skip_verify: true
 
 patch_forkpoint_script:
   file.replace:
@@ -18,11 +20,13 @@ patch_forkpoint_script:
     - backup: '.bak'
 
 download_restore_script:
-  cmd.run:
-    - name: curl -sSL -o {{ home }}/scripts/restore_from_snapshot_systemd.sh https://pub-b0d0d7272c994851b4c8af22a766f571.r2.dev/scripts/testnet-2/restore_from_snapshot_systemd.sh -o restore_from_snapshot_systemd.sh
-    - runas: {{ user_name }}
-    - cwd: {{ home_folder_path }}/{{ user_name }}
-    - shell: /bin/bash
+  file.managed:
+    - name: {{ home }}/scripts/restore_from_snapshot_systemd.sh
+    - source: https://pub-b0d0d7272c994851b4c8af22a766f571.r2.dev/scripts/testnet-2/restore_from_snapshot_systemd.sh
+    - user: {{ user_name }}
+    - group: {{ group }}
+    - mode: 766
+    - skip_verify: true
 
 patch_restore_script:
   file.replace:

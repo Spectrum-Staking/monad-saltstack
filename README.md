@@ -4,7 +4,11 @@ This repository contains SaltStack formulas for deploying and managing Monad nod
 
 ## Prerequisites
 
-Before applying these states, you need to create a pillar file named `monad_config.sls` in your Salt master's pillar root directory (e.g., `/srv/pillar/monad_config.sls`). This file contains the configuration for your Monad node.
+Before applying these states, you need to 
+
+1. Create a pillar file named `monad_config.sls` in your Salt master's pillar root directory (e.g., `/srv/salt/pillar/monad_config.sls`). This file contains the configuration for your Monad node.
+
+2. Apply grain `monad:nodename` to the target machine. Example: `salt monad-test grains.set monad testnet2`
 
 Here is an example of the `monad_config.sls` file:
 
@@ -17,14 +21,14 @@ monad_config:
     shell: /bin/bash
     password: "YOUR_KEYSTORE_PASSWORD"
   nodes:
-    <your_node_id>: # This should match the salt minion id
-      node_name: "YOUR_NODE_NAME"
+    <monad_grain_name>: # This should match value in grain "monad", eg. testnet2
+      node_name: TESTNODE
       network: testnet-2
       mpt_drive: nvme0n1
   networks:
     testnet-2:
       version: latest
-      config_network_name: testnet-2
+      env_network_name: monad_testnet2
       beneficiary: "0xYOUR_BENEFICIARY_ADDRESS"
 ```
 
@@ -84,4 +88,12 @@ The `hard_reset` state is used to reset Monad node as per [Hard Reset procedure]
 *   Restore from snapshot using script
 *   Download forkpoint and validators file
 *   Init MPT database
+*   Start stack
+
+### Hard-Reset State (`hard_reset.sls`)
+
+The `hard_reset` state is used to reset Monad node as per [Soft Reset procedure](https://monad-testnet-2-docs.vercel.app/docs/node_reset/soft_reset):
+
+*   Stop stack
+*   Download forkpoint and validators file
 *   Start stack
