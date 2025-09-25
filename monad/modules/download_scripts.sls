@@ -19,7 +19,23 @@ patch_forkpoint_script:
     - repl: '{{ home_folder_path }}/'
     - backup: '.bak'
 
-download_restore_script:
+download_mf_restore_script:
+  file.managed:
+    - name: {{ home }}/scripts/restore_from_snapshot.sh
+    - source: https://bucket.monadinfra.com/scripts/testnet-2/restore-from-snapshot.sh
+    - user: {{ user_name }}
+    - group: {{ group }}
+    - mode: 766
+    - skip_verify: true
+
+patch_mf_restore_script:
+  file.replace:
+    - name: {{ home }}/scripts/restore_from_snapshot.sh
+    - pattern: '/home/'
+    - repl: '{{ home_folder_path }}/'
+    - backup: '.bak'
+
+download_cf_restore_script:
   file.managed:
     - name: {{ home }}/scripts/restore_from_snapshot_systemd.sh
     - source: https://pub-b0d0d7272c994851b4c8af22a766f571.r2.dev/scripts/testnet-2/restore_from_snapshot_systemd.sh
@@ -28,7 +44,7 @@ download_restore_script:
     - mode: 766
     - skip_verify: true
 
-patch_restore_script:
+patch_cf_restore_script:
   file.replace:
     - name: {{ home }}/scripts/restore_from_snapshot_systemd.sh
     - pattern: '/home/'
