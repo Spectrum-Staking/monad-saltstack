@@ -1,8 +1,5 @@
 include:
   - monad.modules.stop_stack
-  - monad.modules.reset_workspace
-  - monad.modules.restore_from_snapshot
   - monad.modules.download_forkpoint
   - monad.modules.download_validators
-  - monad.modules.init_database
   - monad.modules.start_stack

@@ -1,4 +1,3 @@
-# Allow SSH connections
 allow_ssh:
   cmd.run:
     - name: ufw allow ssh

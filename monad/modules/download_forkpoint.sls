@@ -7,8 +7,8 @@ run_download_forkpoint:
   cmd.run:
     - name: |
         bash -c '
-        source {{ home_folder_path }}/{{ user_name }}/.env && \
-        bash download-forkpoint.sh
+        source .env && \
+        bash scripts/download-forkpoint.sh
         '
     - runas: {{ user_name }}
     - shell: /bin/bash

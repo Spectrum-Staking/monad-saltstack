@@ -1,3 +1,7 @@
-install_aria2:
+install_deps:
   pkg.installed:
-    - name: aria2
+    - names: 
+      - aria2
+      - curl
+      - gnupg
+      - ca-certificates

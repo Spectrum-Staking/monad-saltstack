@@ -1,6 +1,6 @@
 monad_config:
   nodes:
-    monad_testnet1:
+    testnet1:
       node_name: TESTNODE
       network: testnet
       mpt_drive: nvme1n1
@@ -15,6 +15,3 @@ monad_config:
     group: 'monad'
     home_folder_path: "/srv"
     password: str0ngp@ssw0rd
-  valid_node_type:
-    - testnet
-    - mainnet

@@ -2,6 +2,46 @@
 
 This repository contains SaltStack formulas for deploying and managing Monad nodes.
 
+## Prerequisites
+
+Before applying these states, you need to create a pillar file named `monad_config.sls` in your Salt master's pillar root directory (e.g., `/srv/pillar/monad_config.sls`). This file contains the configuration for your Monad node.
+
+Here is an example of the `monad_config.sls` file:
+
+```yaml
+monad_config:
+  user_data:
+    user_name: monad
+    group: monad
+    home_folder_path: /home
+    shell: /bin/bash
+    password: "YOUR_KEYSTORE_PASSWORD"
+  nodes:
+    <your_node_id>: # This should match the salt minion id
+      node_name: "YOUR_NODE_NAME"
+      network: testnet-2
+      mpt_drive: nvme0n1
+  networks:
+    testnet-2:
+      version: latest
+      config_network_name: testnet-2
+      beneficiary: "0xYOUR_BENEFICIARY_ADDRESS"
+```
+
+### Pillar Data Explanation
+
+*   `user_data`: Contains information about the user that will run the monad node.
+    *   `user_name`, `group`, `home_folder_path`, `shell`: User configuration.
+    *   `password`: The password for the keystore.
+*   `nodes`: Contains a dictionary of nodes, where the key is the salt minion id.
+    *   `node_name`: The name of your node.
+    *   `network`: The network to connect to.
+    *   `mpt_drive`: The device name of the drive to be used for MPT storage (e.g., `nvme0n1`).
+*   `networks`: Defines network-specific details.
+    *   `version`: The version of Monad to install (`latest` or a specific version number).
+    *   `config_network_name`: The name of the network for configuration files.
+    *   `beneficiary`: Your beneficiary address.
+
 ## States
 
 ### Deploy State (`deploy.sls`)
@@ -9,7 +49,6 @@ This repository contains SaltStack formulas for deploying and managing Monad nod
 The `deploy` state is used to provision a new Monad node from scratch. It performs the following steps:
 
 1.  **Prerequisites and Setup:**
-    *   Checks for a `monad` grain on the minion to determine the node type (e.g., `testnet`, `mainnet`).
     *   Provisions and formats a dedicated disk for TrieDB storage.
     *   Creates a dedicated user and directory structure for the Monad node.
     *   Adds the necessary APT repository and GPG key for installing Monad.
@@ -34,7 +73,15 @@ The `update` state is used to update an existing Monad node. It performs the fol
 1.  **Software Update:**
     *   Installs the specified or latest version of the Monad package.
     *   Fixes any hardcoded paths in systemd service files that may have changed with the update.
-
-2.  **Reset and Restart:**
-    *   Performs a hard reset of the workspace, which includes restoring from a new snapshot.
     *   Starts all Monad services.
+
+### Hard-Reset State (`hard_reset.sls`)
+
+The `hard_reset` state is used to reset Monad node as per [Hard Reset procedure](https://monad-testnet-2-docs.vercel.app/docs/node_reset/hard_reset):
+
+*   Stop stack
+*   Reset workspace using script
+*   Restore from snapshot using script
+*   Download forkpoint and validators file
+*   Init MPT database
+*   Start stack

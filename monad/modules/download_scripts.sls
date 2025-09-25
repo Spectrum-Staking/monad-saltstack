@@ -9,28 +9,24 @@ fetch_forkpoint_script:
     - user: {{ user_name }}
     - cwd: {{ home }}
     - shell: /bin/bash
-    - creates: {{ home }}/scripts/download-forkpoint.sh
 
 patch_forkpoint_script:
   file.replace:
-    - name: {{ home }}/download-forkpoint.sh
+    - name: {{ home }}/scripts/download-forkpoint.sh
     - pattern: '/home/'
     - repl: '{{ home_folder_path }}/'
     - backup: '.bak'
 
-# Download the restore_from_snapshot_systemd.sh
 download_restore_script:
   cmd.run:
-    - name: curl -sSL https://pub-b0d0d7272c994851b4c8af22a766f571.r2.dev/scripts/testnet-2/restore_from_snapshot_systemd.sh -o restore_from_snapshot_systemd.sh
+    - name: curl -sSL -o {{ home }}/scripts/restore_from_snapshot_systemd.sh https://pub-b0d0d7272c994851b4c8af22a766f571.r2.dev/scripts/testnet-2/restore_from_snapshot_systemd.sh -o restore_from_snapshot_systemd.sh
     - runas: {{ user_name }}
     - cwd: {{ home_folder_path }}/{{ user_name }}
     - shell: /bin/bash
-    - unless: test -f {{ home_folder_path }}/{{ user_name }}/restore_from_snapshot_systemd.sh
 
-# Patch the script (replace /home/ with correct path, keeping the trailing slash)
 patch_restore_script:
-  cmd.run:
-    - name: sed -i "s|/home/|{{ home_folder_path }}/|g" restore_from_snapshot_systemd.sh
-    - runas: {{ user_name }}
-    - cwd: {{ home_folder_path }}/{{ user_name }}
-    - shell: /bin/bash
+  file.replace:
+    - name: {{ home }}/scripts/restore_from_snapshot_systemd.sh
+    - pattern: '/home/'
+    - repl: '{{ home_folder_path }}/'
+    - backup: '.bak'

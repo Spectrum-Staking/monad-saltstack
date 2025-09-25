@@ -1,6 +1,5 @@
 include:
   - monad.modules.install_deps
-  - monad.modules.check_grains
   - monad.modules.provision_triedb_disk
   - monad.modules.create_user
   - monad.modules.create_bft_dirs
@@ -11,7 +10,7 @@ include:
 #  - monad.modules.configure_ufw
   - monad.modules.gen_env
   - monad.modules.key_mgmt
-  - monad.modules.download_config_files
+  - monad.modules.download_validators
   - monad.modules.sign_name_record
   - monad.modules.update_node_toml
   - monad.modules.fix_monad_paths

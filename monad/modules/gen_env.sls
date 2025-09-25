@@ -5,7 +5,7 @@
 
 {% set node = salt['grains.get']('monad', {}) %}
 {% set network = salt['pillar.get']('monad_config:' ~ node ~ ':network') %}
-{% set network_name = salt['pillar.get']('monad_config:networks' ~ network ~ ':name') %}
+{% set network_name = salt['pillar.get']('monad_config:networks:' ~ network ~ ':name') %}
 
 # Set proper ownership of the downloaded file
 create_env_file:
@@ -15,6 +15,6 @@ create_env_file:
     - group: {{group}}
     - mode: 644
     - contents: |
-    CONFIG_DIR={{home_folder_path}}/{{user_name}}
-    KEYSTORE_PASSWORD={{ password }}
-    CHAIN={{ chain_name }}
+        CONFIG_DIR={{home_folder_path}}/{{user_name}}
+        KEYSTORE_PASSWORD={{ password }}
+        CHAIN={{ network_name }}
