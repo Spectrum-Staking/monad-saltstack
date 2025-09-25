@@ -95,9 +95,9 @@ The `hard_reset` state is used to reset Monad node as per [Hard Reset procedure]
 *   Init MPT database
 *   Start stack
 
-### Hard-Reset State (`hard_reset.sls`)
+### Soft-Reset State (`soft_reset.sls`)
 
-The `hard_reset` state is used to reset Monad node as per [Soft Reset procedure](https://monad-testnet-2-docs.vercel.app/docs/node_reset/soft_reset):
+The `soft_reset` state is used to reset Monad node as per [Soft Reset procedure](https://monad-testnet-2-docs.vercel.app/docs/node_reset/soft_reset):
 
 *   Stop stack
 *   Download forkpoint and validators file
