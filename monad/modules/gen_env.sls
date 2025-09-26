@@ -4,8 +4,8 @@
 {% set password = salt['pillar.get']('monad_config:user_data:password') %}
 
 {% set node = salt['grains.get']('monad', {}) %}
-{% set network = salt['pillar.get']('monad_config:' ~ node ~ ':network') %}
-{% set network_name = salt['pillar.get']('monad_config:networks:' ~ network ~ ':name') %}
+{% set network = salt['pillar.get']('monad_config:nodes:' ~ node ~ ':network') %}
+{% set network_name = salt['pillar.get']('monad_config:networks:' ~ network ~ ':env_network_name') %}
 
 # Set proper ownership of the downloaded file
 create_env_file:
