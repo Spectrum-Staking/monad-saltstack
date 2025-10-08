@@ -6,7 +6,7 @@ monad_config:
       mpt_drive: nvme1n1
   networks:
     testnet-2:
-      version: 0.11.1
+      version: 0.11.3-tn2
       env_network_name: "monad_testnet2"
       beneficiary: "0x0000000000000000000000000000000000000001"
   user_data:

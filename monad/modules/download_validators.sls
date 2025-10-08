@@ -6,7 +6,10 @@
 # Download validators.toml from remote URL to config directory
 download_validators_toml:
   cmd.run:
-    - name: curl -o {{ config_dir }}/monad-bft/config/validators.toml https://bucket.monadinfra.com/validators/testnet-2/validators.toml
-    - runas: {{ user_name }}
-    - cwd: {{ config_dir }}
+    - name: {{ config_dir }}/monad-bft/config/validators/validators.toml
+    - source: https://bucket.monadinfra.com/validators/testnet-2/validators.toml
+    - user: {{ user_name }}
+    - group: {{ group }}
+    - mode: 766
+    - skip_verify: true
     
