@@ -64,33 +64,11 @@ max_mbps = 1000
 [fullnode_dedicated]
 identities = []
 
-#This section will be removed after most validators have joined the network
-[[blocksync_override.peers]]
-secp256k1_pubkey = "03afd66a0822428268bf9bdf06e4038ca240b29051683bedf61aa6f80ac1a9ba7a"
-[[statesync.peers]]
-secp256k1_pubkey = "03afd66a0822428268bf9bdf06e4038ca240b29051683bedf61aa6f80ac1a9ba7a"
-[[blocksync_override.peers]]
-secp256k1_pubkey = "023238f0ed4e62da46d69aa6da49a7a5ca9299d74e1deb80d13c2d2087d2d0086e"
-[[statesync.peers]]
-secp256k1_pubkey = "023238f0ed4e62da46d69aa6da49a7a5ca9299d74e1deb80d13c2d2087d2d0086e"
-[[blocksync_override.peers]]
-secp256k1_pubkey = "03d24fc82da1a1ad844c507d43b1cf62a697efeb7d6c983a182932abbe1033e72b"
-[[statesync.peers]]
-secp256k1_pubkey = "03d24fc82da1a1ad844c507d43b1cf62a697efeb7d6c983a182932abbe1033e72b"
-[[blocksync_override.peers]]
-secp256k1_pubkey = "03aa8176c7d2451678ccf8e81f416ce8a41f2ba62a1d5217885585177ac4d1b6cc"
-[[statesync.peers]]
-secp256k1_pubkey = "03aa8176c7d2451678ccf8e81f416ce8a41f2ba62a1d5217885585177ac4d1b6cc"
-[[blocksync_override.peers]]
-secp256k1_pubkey = "028f4ee74e9fef46e59e5581d5d10bd025dc6f8a1164d84c6d3ea4404e7ca40f43"
-[[statesync.peers]]
-secp256k1_pubkey = "028f4ee74e9fef46e59e5581d5d10bd025dc6f8a1164d84c6d3ea4404e7ca40f43"
-
 #This section will be uncommented after most validators have joined the network
-#[blocksync_override]
-#peers = []
-#[statesync]
-#peers = []
+[blocksync_override]
+peers = []
+[statesync]
+peers = []
 
 [[bootstrap.peers]]
 # mf-testnet-2-val-tsw-pit-004.monadinfra.com:8000

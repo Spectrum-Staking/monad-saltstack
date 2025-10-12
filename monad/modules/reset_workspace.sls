@@ -6,8 +6,7 @@
 # Run reset-workspace.sh with /opt/ replaced by {{ home_folder_path }}
 reset_workspace:
   cmd.run:
-    - name: >
-        sed "s|/opt/|{{ home_folder_path }}/|" /opt/monad/scripts/reset-workspace.sh | bash
+    - name: bash /opt/monad/scripts/reset-workspace.sh
     - runas: {{ user_name }}
     - shell: /bin/bash
     - cwd: {{ home_folder_path }}/{{ user_name }}

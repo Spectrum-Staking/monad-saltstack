@@ -6,7 +6,7 @@
 {% set node = salt['grains.get']('monad', {}) %}
 {% set network = salt['pillar.get']('monad_config:nodes:' ~ node ~ ':network') %}
 {% set node_name = salt['pillar.get']('monad_config:nodes:' ~ node ~ ':node_name') %}
-{% set beneficiary = salt['pillar.get']('monad_config:networks:' ~ network ~ ':beneficiary') %}
+{% set beneficiary = salt['pillar.get']('monad_config:nodes:' ~ node ~ ':beneficiary') %}
 
 # Deploy node.toml configuration from template
 deploy_node_toml:
