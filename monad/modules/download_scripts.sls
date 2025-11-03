@@ -3,10 +3,16 @@
 {% set home_folder_path = salt['pillar.get']('monad_config:user_data:home_folder_path') %}
 {% set home             = home_folder_path ~ '/' ~ user_name %}
 
+{% set node = salt['grains.get']('monad', {}) %}
+{% set network = salt['pillar.get']('monad_config:nodes:' ~ node ~ ':network') %}
+{% set forkpoint_url = salt['pillar.get']('monad_config:networks:' ~ network ~ ':validators_url') %}
+{% set restore_from_snapshot_cf_url = salt['pillar.get']('monad_config:networks:' ~ network ~ ':validators_url') %}
+
+
 fetch_forkpoint_script:
   file.managed:
     - name: {{ home }}/scripts/download-forkpoint.sh
-    - source: https://bucket.monadinfra.com/scripts/testnet-2/download-forkpoint.sh
+    - source: {{ forkpoint_url }}
     - user: {{ user_name }}
     - group: {{ group }}
     - mode: 766
@@ -19,26 +25,10 @@ patch_forkpoint_script:
     - repl: '{{ home_folder_path }}/'
     - backup: '.bak'
 
-download_mf_restore_script:
-  file.managed:
-    - name: {{ home }}/scripts/restore_from_snapshot.sh
-    - source: https://bucket.monadinfra.com/scripts/testnet-2/restore-from-snapshot.sh
-    - user: {{ user_name }}
-    - group: {{ group }}
-    - mode: 766
-    - skip_verify: true
-
-patch_mf_restore_script:
-  file.replace:
-    - name: {{ home }}/scripts/restore_from_snapshot.sh
-    - pattern: '/home/'
-    - repl: '{{ home_folder_path }}/'
-    - backup: '.bak'
-
 download_cf_restore_script:
   file.managed:
     - name: {{ home }}/scripts/restore_from_snapshot_systemd.sh
-    - source: https://pub-b0d0d7272c994851b4c8af22a766f571.r2.dev/scripts/testnet-2/restore_from_snapshot_systemd.sh
+    - source: {{ restore_from_snapshot_cf_url }}
     - user: {{ user_name }}
     - group: {{ group }}
     - mode: 766
