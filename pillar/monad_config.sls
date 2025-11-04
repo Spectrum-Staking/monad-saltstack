@@ -13,7 +13,8 @@ monad_config:
       validators_url: https://bucket.monadinfra.com/validators/testnet/validators.toml
       forkpoint_url: https://bucket.monadinfra.com/scripts/testnet/download-forkpoint.sh
       restore_from_snapshot_cl_url: https://pub-b0d0d7272c994851b4c8af22a766f571.r2.dev/scripts/testnet/restore_from_snapshot_systemd.sh
-      restore_from_snapshot_mf_url: https://bucket.monadinfra.com/scripts/testnet/restore-from-snapshot.sh  user_data:
+      restore_from_snapshot_mf_url: https://bucket.monadinfra.com/scripts/testnet/restore-from-snapshot.sh  
+  user_data:
     user_name: 'monad'
     group: 'monad'
     home_folder_path: "/srv"
