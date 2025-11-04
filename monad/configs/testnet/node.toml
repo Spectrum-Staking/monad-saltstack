@@ -10,7 +10,7 @@
 #########################################################
 beneficiary = "{{ beneficiary }}"
 node_name = "{{ node_name }}"
-network_name = "{{ network }}"
+network_name = "{{ network_name }}"
 ipc_tx_batch_size = 1000
 ipc_max_queued_batches = 10
 ipc_queued_batches_watermark = 7
