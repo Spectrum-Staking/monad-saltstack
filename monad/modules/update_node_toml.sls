@@ -12,7 +12,7 @@
 deploy_node_toml:
   file.managed:
     - name: {{ home }}/monad-bft/config/node.toml
-    - source: salt://monad/configs/node.toml
+    - source: salt://monad/configs/{{ network }}/node.toml
     - template: jinja
     - context:
         network_name: {{ network }}

@@ -5,8 +5,9 @@
 
 {% set node = salt['grains.get']('monad', {}) %}
 {% set network = salt['pillar.get']('monad_config:nodes:' ~ node ~ ':network') %}
-{% set forkpoint_url = salt['pillar.get']('monad_config:networks:' ~ network ~ ':validators_url') %}
-{% set restore_from_snapshot_cf_url = salt['pillar.get']('monad_config:networks:' ~ network ~ ':validators_url') %}
+{% set forkpoint_url = salt['pillar.get']('monad_config:networks:' ~ network ~ ':forkpoint_url') %}
+{% set restore_from_snapshot_cf_url = salt['pillar.get']('monad_config:networks:' ~ network ~ ':restore_from_snapshot_cf_url') %}
+{% set restore_from_snapshot_mf_url = salt['pillar.get']('monad_config:networks:' ~ network ~ ':restore_from_snapshot_mf_url') %}
 
 
 fetch_forkpoint_script:
@@ -37,6 +38,22 @@ download_cf_restore_script:
 patch_cf_restore_script:
   file.replace:
     - name: {{ home }}/scripts/restore_from_snapshot_systemd.sh
+    - pattern: '/home/'
+    - repl: '{{ home_folder_path }}/'
+    - backup: '.bak'
+
+download_mf_restore_script:
+  file.managed:
+    - name: {{ home }}/scripts/restore_from_snapshot.sh
+    - source: {{ restore_from_snapshot_mf_url }}
+    - user: {{ user_name }}
+    - group: {{ group }}
+    - mode: 766
+    - skip_verify: true
+
+patch_mf_restore_script:
+  file.replace:
+    - name: {{ home }}/scripts/restore_from_snapshot.sh
     - pattern: '/home/'
     - repl: '{{ home_folder_path }}/'
     - backup: '.bak'

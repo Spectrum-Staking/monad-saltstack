@@ -4,7 +4,7 @@
 
 run_restore_script:
   cmd.run:
-    - name: bash -c '{{ home_folder_path }}/{{ user_name }}/scripts/restore_from_snapshot.sh'
+    - name: bash -c '{{ home_folder_path }}/{{ user_name }}/scripts/restore_from_snapshot_systemd.sh'
 
 fix_permissions:
   file.directory:

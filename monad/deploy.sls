@@ -17,6 +17,7 @@ include:
   - monad.modules.init_hugepages
   - monad.modules.init_database
   - monad.modules.download_forkpoint
+  - monad.modules.reset_workspace
   - monad.modules.restore_from_snapshot
   - monad.modules.start_stack
   - monad.modules.enable_cruft

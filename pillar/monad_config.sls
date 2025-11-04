@@ -10,7 +10,7 @@ monad_config:
     testnet-1:
       version: 0.11.3-tn1
       env_network_name: "monad_testnet2"
-      validators_url: https://bucket.monadinfra.com//validators/testnet/validators.toml
+      validators_url: https://bucket.monadinfra.com/validators/testnet/validators.toml
       forkpoint_url: https://bucket.monadinfra.com/scripts/testnet/download-forkpoint.sh
       restore_from_snapshot_cf_url: https://pub-b0d0d7272c994851b4c8af22a766f571.r2.dev/scripts/testnet/restore_from_snapshot_systemd.sh
   user_data:
