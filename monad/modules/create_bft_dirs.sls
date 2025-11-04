@@ -9,6 +9,7 @@ create_monad_dirs:
       - {{ home_folder_path }}/{{ user_name }}/monad-bft/config
       - {{ home_folder_path }}/{{ user_name }}/monad-bft/ledger
       - {{ home_folder_path }}/{{ user_name }}/monad-bft/config/forkpoint
+      - {{ home_folder_path }}/{{ user_name }}/monad-bft/config/validators
       - {{ home_folder_path }}/{{ user_name }}/backup
       - {{ home_folder_path }}/{{ user_name }}/scripts
     - user: {{ user_name }}
