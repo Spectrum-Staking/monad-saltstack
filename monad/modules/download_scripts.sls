@@ -6,7 +6,7 @@
 {% set node = salt['grains.get']('monad', {}) %}
 {% set network = salt['pillar.get']('monad_config:nodes:' ~ node ~ ':network') %}
 {% set forkpoint_url = salt['pillar.get']('monad_config:networks:' ~ network ~ ':forkpoint_url') %}
-{% set restore_from_snapshot_cf_url = salt['pillar.get']('monad_config:networks:' ~ network ~ ':restore_from_snapshot_cf_url') %}
+{% set restore_from_snapshot_cl_url = salt['pillar.get']('monad_config:networks:' ~ network ~ ':restore_from_snapshot_cl_url') %}
 {% set restore_from_snapshot_mf_url = salt['pillar.get']('monad_config:networks:' ~ network ~ ':restore_from_snapshot_mf_url') %}
 
 
@@ -29,7 +29,7 @@ patch_forkpoint_script:
 download_cf_restore_script:
   file.managed:
     - name: {{ home }}/scripts/restore_from_snapshot_systemd.sh
-    - source: {{ restore_from_snapshot_cf_url }}
+    - source: {{ restore_from_snapshot_cl_url }}
     - user: {{ user_name }}
     - group: {{ group }}
     - mode: 766
