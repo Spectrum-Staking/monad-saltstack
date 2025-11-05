@@ -8,28 +8,33 @@ Before applying these states, you need to
 
 1. Create a pillar file named `monad_config.sls` in your Salt master's pillar root directory (e.g., `/srv/salt/pillar/monad_config.sls`). This file contains the configuration for your Monad node.
 
-2. Apply grain `monad:nodename` to the target machine. Example: `salt monad-test grains.set monad testnet2`
+2. Apply grain `monad:nodename` to the target machine. Example: `salt monad-test grains.set monad testnet-node-1`
 
 Here is an example of the `monad_config.sls` file:
 
 ```yaml
 monad_config:
-  user_data:
-    user_name: monad
-    group: monad
-    home_folder_path: /home
-    shell: /bin/bash
-    password: "YOUR_KEYSTORE_PASSWORD"
   nodes:
-    <monad_grain_name>: # This should match value in grain "monad", eg. testnet2
+    testnet-node-1:
       node_name: TESTNODE
-      network: testnet-2
-      mpt_drive: nvme0n1
-  networks:
-    testnet-2:
-      version: latest
-      env_network_name: monad_testnet2
+      # The node is part of TN1
+      network: testnet
+      mpt_drive: <MPTDISK e.g. nvme0n1>
+      password: <YOUR_KEYSTORE_PASSWORD>
       beneficiary: "0xYOUR_BENEFICIARY_ADDRESS"
+  networks:
+    # Per network parameters (TN1)
+    testnet:
+      version: 0.12~rc
+      env_network_name: "monad_testnet"
+      validators_url: https://bucket.monadinfra.com/validators/testnet/validators.toml
+      forkpoint_url: https://bucket.monadinfra.com/scripts/testnet/download-forkpoint.sh
+      restore_from_snapshot_cl_url: https://pub-b0d0d7272c994851b4c8af22a766f571.r2.dev/scripts/testnet/restore_from_snapshot_systemd.sh
+      restore_from_snapshot_mf_url: https://bucket.monadinfra.com/scripts/testnet/restore-from-snapshot.sh  
+  user_data:
+    user_name: 'monad'
+    group: 'monad'
+    home_folder_path: "/srv"
 ```
 
 ### Pillar Data Explanation
