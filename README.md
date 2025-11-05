@@ -25,7 +25,7 @@ monad_config:
   networks:
     # Per network parameters (TN1)
     testnet:
-      version: 0.12~rc
+      version: 0.12.0~rc
       env_network_name: "monad_testnet"
       validators_url: https://bucket.monadinfra.com/validators/testnet/validators.toml
       forkpoint_url: https://bucket.monadinfra.com/scripts/testnet/download-forkpoint.sh

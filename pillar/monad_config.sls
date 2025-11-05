@@ -8,7 +8,7 @@ monad_config:
       beneficiary: "0x0000000000000000000000000000000000000001"
   networks:
     testnet:
-      version: 0.11.6-tn1-hotfix
+      version: 0.12.0~rc
       env_network_name: "monad_testnet"
       validators_url: https://bucket.monadinfra.com/validators/testnet/validators.toml
       forkpoint_url: https://bucket.monadinfra.com/scripts/testnet/download-forkpoint.sh
