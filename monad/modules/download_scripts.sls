@@ -26,6 +26,7 @@ patch_forkpoint_script:
     - repl: '{{ home_folder_path }}/'
     - backup: '.bak'
 
+{% if network == 'testnet' %}
 download_cf_restore_script:
   file.managed:
     - name: {{ home }}/scripts/restore_from_snapshot_systemd.sh
@@ -57,3 +58,4 @@ patch_mf_restore_script:
     - pattern: '/home/'
     - repl: '{{ home_folder_path }}/'
     - backup: '.bak'
+{% endif %}

@@ -1,3 +1,6 @@
+{% set node = salt['grains.get']('monad', {}) %}
+{% set network = salt['pillar.get']('monad_config:nodes:' ~ node ~ ':network') %}
+
 include:
   - monad.modules.install_deps
   - monad.modules.provision_triedb_disk
@@ -7,7 +10,6 @@ include:
   - monad.modules.add_gpg_key
   - monad.modules.install_monad
   - monad.modules.download_scripts
-#  - monad.modules.configure_ufw
   - monad.modules.gen_env
   - monad.modules.key_mgmt
   - monad.modules.download_validators
@@ -17,8 +19,10 @@ include:
   - monad.modules.init_hugepages
   - monad.modules.init_database
   - monad.modules.download_forkpoint
+  {% if network == 'testnet' %}
   - monad.modules.reset_workspace
   - monad.modules.restore_from_snapshot
+  {% endif %}
   - monad.modules.start_stack
   - monad.modules.enable_cruft
 
