@@ -6,9 +6,20 @@ monad_config:
       mpt_drive: nvme1n1
       password: str0ngp@ssw0rd
       beneficiary: "0x0000000000000000000000000000000000000001"
+    mainnet:
+      node_name: MAINNODE
+      network: mainnet
+      mpt_drive: nvme1n1
+      password: str0ngp@ssw0rd
+      beneficiary: "0x0000000000000000000000000000000000000001"
   networks:
+    mainnet:
+      version: 0.12.0
+      env_network_name: "monad_mainnet"
+      validators_url: https://bucket.monadinfra.com/validators/mainnet/validators.toml
+      forkpoint_url: https://bucket.monadinfra.com/scripts/mainnet/download-forkpoint.sh
     testnet:
-      version: 0.12.0~rc
+      version: 0.12.1~rc
       env_network_name: "monad_testnet"
       validators_url: https://bucket.monadinfra.com/validators/testnet/validators.toml
       forkpoint_url: https://bucket.monadinfra.com/scripts/testnet/download-forkpoint.sh
