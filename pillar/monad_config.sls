@@ -5,13 +5,13 @@ monad_config:
       network: testnet
       mpt_drive: nvme1n1
       password: str0ngp@ssw0rd
-      beneficiary: "0x0000000000000000000000000000000000000001"
+      beneficiary: "0x0000000000000000000000000000000000000000"
     mainnet:
       node_name: MAINNODE
       network: mainnet
       mpt_drive: nvme1n1
       password: str0ngp@ssw0rd
-      beneficiary: "0x685E077fC097079F964Ea8B6258bfbFb976e248f"
+      beneficiary: "0x0000000000000000000000000000000000000000"
   networks:
     mainnet:
       version: 0.12.0

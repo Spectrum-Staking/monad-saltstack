@@ -15,6 +15,12 @@ Here is an example of the `monad_config.sls` file:
 ```yaml
 monad_config:
   nodes:
+    mainnet-node-1:
+      node_name: MAINNODE
+      network: mainnet
+      mpt_drive: <MPTDISK e.g. nvme0n1>
+      password: <YOUR_KEYSTORE_PASSWORD>
+      beneficiary: "0xYOUR_BENEFICIARY_ADDRESS"     
     testnet-node-1:
       node_name: TESTNODE
       # The node is part of TN1
@@ -23,6 +29,11 @@ monad_config:
       password: <YOUR_KEYSTORE_PASSWORD>
       beneficiary: "0xYOUR_BENEFICIARY_ADDRESS"
   networks:
+    mainnet:
+      version: 0.12.0
+      env_network_name: "monad_mainnet"
+      validators_url: https://bucket.monadinfra.com/validators/mainnet/validators.toml
+      forkpoint_url: https://bucket.monadinfra.com/scripts/mainnet/download-forkpoint.sh
     # Per network parameters (TN1)
     testnet:
       version: 0.12.0~rc
@@ -39,19 +50,29 @@ monad_config:
 
 ### Pillar Data Explanation
 
-*   `user_data`: Contains information about the user that will run the monad node.
-    *   `user_name`, `group`, `home_folder_path`, `shell`: User configuration.
-    *   `password`: The password for the keystore.
+
 *   `nodes`: Contains a dictionary of nodes, where the key is the salt minion id.
     *   `node_name`: The name of your node.
-    *   `network`: The network to connect to.
+    *   `network`: The network to connect to (e.g., `mainnet`, `testnet`)
     *   `mpt_drive`: The device name of the drive to be used for MPT storage (e.g., `nvme0n1`).
+    *   `password`: The password for the keystore.
+    *   `beneficiary`: your beneficiary address. Make sure to use quotes to indicate a string.
 *   `networks`: Defines network-specific details.
     *   `version`: The version of Monad to install (`latest` or a specific version number).
-    *   `config_network_name`: The name of the network for configuration files.
-    *   `beneficiary`: Your beneficiary address. Make sure to use quotes to indicate a string.
+    *   `env_network_name`: The name of the network for env file.
+    *   `validators_url`: The URL to download the validators file.
+    *   `forkpoint_url`: The URL to download the forkpoint script.
+*   `user_data`: Contains information about the user that will run the monad node.
+    *   `user_name`, `group`, `home_folder_path`: User configuration.
+
 
 ## States
+
+To use states simply execute state for a particular minion:
+
+`salt monad-test salt.apply monad.deploy`
+
+Configuration parameters will be automatically pulled from pillar data based on `monad` grain value.
 
 ### Deploy State (`deploy.sls`)
 
