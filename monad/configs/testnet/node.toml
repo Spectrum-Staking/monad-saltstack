@@ -27,7 +27,7 @@ chain_id = 10143
 self_name_record_sig = "{{ record_sig }}"
 self_address = "{{ address_with_port }}"
 self_record_seq_num = 0
-refresh_period = 120
+refresh_period = 20
 request_timeout = 5
 unresponsive_prune_threshold = 3
 last_participation_prune_threshold = 2000
@@ -41,7 +41,7 @@ raptor10_fullnode_redundancy_factor = 3.0
 max_group_size = 150
 max_num_group = 3
 round_span = 240
-invite_lookahead = 120
+invite_lookahead = 20
 max_invite_wait = 10
 deadline_round_dist = 10
 init_empty_round_span = 23
@@ -80,7 +80,8 @@ identities = []
 peers = []
 
 [statesync]
-peers = []
+expand_to_group = true
+init_peers = []
 
 [[bootstrap.peers]]
 # monad-testnet-1.stakin-nodes.com:8000
